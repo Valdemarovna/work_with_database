@@ -15,7 +15,8 @@ Including another URLconf
 """
 
 from django.urls import path
+from recipes.views import res
 
 urlpatterns = [
-    # здесь зарегистрируйте вашу view-функцию
+    path('res/<a>/', res)
 ]
