@@ -1,4 +1,6 @@
+from lib2to3.fixes.fix_input import context
 from django.shortcuts import render
+from django.http import HttpResponse
 
 DATA = {
     'omlet': {
@@ -20,8 +22,17 @@ DATA = {
 }
 
 
+def hello(request):
+    return render(request, 'demo.html')
 
-
+def res(request, a):
+    ingridients = DATA.get(a,'no recipe')
+    servings = int(request.GET.get('servings',1))
+    if ingridients != 'no recipe':
+        for k in ingridients:
+            ingridients[k]=ingridients[k]*servings
+    context = {'ingr': ingridients}
+    return render(request, 'demo.html', context)
 
 # Напишите ваш обработчик. Используйте DATA как источник данных
 # Результат - render(request, 'calculator/index.html', context)
